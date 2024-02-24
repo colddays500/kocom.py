@@ -59,7 +59,7 @@ def init_mqttc():
 
 #    if config.get('MQTT','mqtt_allow_anonymous') != 'True':
         logtxt = "[MQTT] connecting (using username and password)"
-        mqttc.username_pw_set(username=config.get('MQTT','mqtt_username',fallback=''), password=config.get('MQTT','mqtt_password',fallback=''))
+        mqttc.username_pw_set(username=test), password=test)
 #    else:
 #        logtxt = "[MQTT] connecting (anonymous)"
 
