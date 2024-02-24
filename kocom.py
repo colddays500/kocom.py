@@ -17,7 +17,7 @@ import threading
 import queue
 import random
 import json
-import paho.mqtt.client as mqtt
+import paho.mqtt.client as paho_mqtt
 import logging
 import configparser
 
@@ -51,7 +51,8 @@ room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'roo
 # mqtt functions ----------------------------
 
 def init_mqttc():
-    mqttc = mqtt.Client()
+    from paho.mqtt.enums import CallbackAPIVersion
+    mqttc = paho_mqtt.Client(CallbackAPIVersion.VERSION1)
     mqttc.on_message = mqtt_on_message
     mqttc.on_subscribe = mqtt_on_subscribe
     mqttc.on_connect = mqtt_on_connect
