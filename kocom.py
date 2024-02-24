@@ -49,7 +49,20 @@ cmd_h_dic = {v: k for k, v in cmd_t_dic.items()}
 room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'room3':'03', 'kitchen':'04'}
 
 # mqtt functions ----------------------------
+def connect_mqtt(self, server, name):
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    mqttc.on_message = mqtt_on_message
+    mqttc.on_subscribe = mqtt_on_subscribe
+    mqttc.on_connect = mqtt_on_connect
+    mqttc.on_disconnect = mqtt_on_disconnect
+    logtxt = "[MQTT] connecting (using username and password)"
+    mqttc.username_pw_set(username=test, password=test)
+    logging.info(logtxt)
+    mqttc.connect('192.168.0.1', 1883, 60)
+    mqttc.loop_start()
+    return mqttc
 
+'''
 def init_mqttc():
     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     mqttc.on_message = mqtt_on_message
@@ -77,7 +90,7 @@ def init_mqttc():
             logging.error('[MQTT] connection failure. #' + str(retry_cnt))
             time.sleep(10)
     return False
-
+'''
 def mqtt_on_subscribe(mqttc, obj, mid, granted_qos):
     logging.info("[MQTT] Subscribed: " + str(mid) + " " + str(granted_qos))
 
