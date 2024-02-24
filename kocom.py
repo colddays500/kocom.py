@@ -23,7 +23,7 @@ import configparser
 
 
 # define -------------------------------
-SW_VERSION = '2024.02.002'
+SW_VERSION = '2024.02.003'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -58,8 +58,8 @@ def init_mqttc():
     mqttc.on_disconnect = mqtt_on_disconnect
 
 #    if config.get('MQTT','mqtt_allow_anonymous') != 'True':
-        logtxt = "[MQTT] connecting (using username and password)"
-        mqttc.username_pw_set(username=test), password=test)
+    logtxt = "[MQTT] connecting (using username and password)"
+    mqttc.username_pw_set(username=test), password=test)
 #    else:
 #        logtxt = "[MQTT] connecting (anonymous)"
 
