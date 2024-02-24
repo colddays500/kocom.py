@@ -88,7 +88,7 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
         logging.info("[MQTT] Connected - 0: OK")
         mqttc.subscribe('kocom/#', 0)
     else:
-        logging.error("[MQTT] Connection error - {}: {}".format(rc, mqtt.connack_string(rc)))
+        logging.error("[MQTT] Connection error - {}: {}".format(rc, paho_mqtt.connack_string(rc)))
 
 def mqtt_on_disconnect(mqttc, userdata, rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
