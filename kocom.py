@@ -49,7 +49,7 @@ cmd_h_dic = {v: k for k, v in cmd_t_dic.items()}
 room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'room3':'03', 'kitchen':'04'}
 
 # mqtt functions ----------------------------
-'''
+
 def init_mqttc():
     mqttc = mqtt.Client()
     mqttc.on_message = mqtt_on_message
@@ -91,7 +91,7 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
 
 def mqtt_on_disconnect(mqttc, userdata, rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
-'''
+
 
 # serial/socket communication class & functions--------------------
 
