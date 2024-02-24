@@ -17,7 +17,7 @@ import threading
 import queue
 import random
 import json
-#import paho.mqtt.client as mqtt
+import paho.mqtt.client as mqtt
 import logging
 import configparser
 
