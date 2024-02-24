@@ -59,6 +59,7 @@ cmd_h_dic = {v: k for k, v in cmd_t_dic.items()}
 room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'room3':'03', 'kitchen':'04'}
 
 # mqtt functions ----------------------------
+'''
 def connect_mqtt(self, server, name):
     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     mqttc.on_message = mqtt_on_message
@@ -72,7 +73,6 @@ def connect_mqtt(self, server, name):
     mqttc.loop_start()
     return mqttc
 
-'''
 def init_mqttc():
     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
     mqttc.on_message = mqtt_on_message
