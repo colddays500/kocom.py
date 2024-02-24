@@ -17,7 +17,8 @@ import threading
 import queue
 import random
 import json
-import paho.mqtt.client as paho_mqtt
+import paho.mqtt.client as mqtt
+from paho.mqtt.enums import CallbackAPIVersion
 import logging
 import configparser
 
@@ -51,8 +52,8 @@ room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'roo
 # mqtt functions ----------------------------
 
 def init_mqttc():
-    from paho.mqtt.enums import CallbackAPIVersion
-    mqttc = paho_mqtt.Client(CallbackAPIVersion.VERSION1)
+#    mqttc = mqtt.Client()
+    mqttc = mqtt.Client(CallbackAPIVersion.VERSION1)
     mqttc.on_message = mqtt_on_message
     mqttc.on_subscribe = mqtt_on_subscribe
     mqttc.on_connect = mqtt_on_connect
@@ -88,7 +89,7 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
         logging.info("[MQTT] Connected - 0: OK")
         mqttc.subscribe('kocom/#', 0)
     else:
-        logging.error("[MQTT] Connection error - {}: {}".format(rc, paho_mqtt.connack_string(rc)))
+        logging.error("[MQTT] Connection error - {}: {}".format(rc, mqtt.connack_string(rc)))
 
 def mqtt_on_disconnect(mqttc, userdata, rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
