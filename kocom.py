@@ -23,7 +23,7 @@ import configparser
 
 
 # define -------------------------------
-SW_VERSION = '2024.02.004'
+SW_VERSION = '2024.02.005'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -64,9 +64,10 @@ def init_mqttc():
     mqttc.username_pw_set(username=test, password=test)
 #    else:
 #        logtxt = "[MQTT] connecting (anonymous)"
-
-    mqtt_server = config.get('MQTT','mqtt_server')
-    mqtt_port = int(config.get('MQTT','mqtt_port'))
+#    mqtt_server = config.get('MQTT','mqtt_server')
+#    mqtt_port = int(config.get('MQTT','mqtt_port'))
+    mqtt_server = 192.168.0.2
+    mqtt_port = 1883
     for retry_cnt in range(1,31):
         try:
             logging.info(logtxt)
