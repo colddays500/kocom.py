@@ -18,22 +18,12 @@ import queue
 import random
 import json
 import paho.mqtt.client as mqtt
-from collections import OrderedDict
 import logging
 import configparser
-import os.path
-import serial
-import socket
-import time
-import platform
-import threading
-import logging.config
-import logging.handlers
-
 
 
 # define -------------------------------
-SW_VERSION = '2024.02.006'
+SW_VERSION = '2023.08.012'
 CONFIG_FILE = 'kocom.conf'
 BUF_SIZE = 100
 
@@ -60,47 +50,32 @@ room_h_dic = {'livingroom':'00', 'myhome':'00', 'room1':'01', 'room2':'02', 'roo
 
 # mqtt functions ----------------------------
 '''
-def connect_mqtt(self, server, name):
-    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
-    mqttc.on_message = mqtt_on_message
-    mqttc.on_subscribe = mqtt_on_subscribe
-    mqttc.on_connect = mqtt_on_connect
-    mqttc.on_disconnect = mqtt_on_disconnect
-    logtxt = "[MQTT] connecting (using username and password)"
-    mqttc.username_pw_set(username=test, password=test)
-    logging.info(logtxt)
-    mqttc.connect('192.168.0.1', 1883, 60)
-    mqttc.loop_start()
-    return mqttc
-
 def init_mqttc():
-    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    mqttc = mqtt.Client()
     mqttc.on_message = mqtt_on_message
     mqttc.on_subscribe = mqtt_on_subscribe
     mqttc.on_connect = mqtt_on_connect
     mqttc.on_disconnect = mqtt_on_disconnect
 
-#    if config.get('MQTT','mqtt_allow_anonymous') != 'True':
-#        logtxt = "[MQTT] connecting (using username and password)"
-#        mqttc.username_pw_set(username=config.get('MQTT','mqtt_username',fallback=''), password=config.get('MQTT','mqtt_password',fallback=''))
-    logtxt = "[MQTT] connecting (using username and password)"
-    mqttc.username_pw_set(username=test, password=test)
-#    else:
-#        logtxt = "[MQTT] connecting (anonymous)"
-#    mqtt_server = config.get('MQTT','mqtt_server')
-#    mqtt_port = int(config.get('MQTT','mqtt_port'))
+    if config.get('MQTT','mqtt_allow_anonymous') != 'True':
+        logtxt = "[MQTT] connecting (using username and password)"
+        mqttc.username_pw_set(username=config.get('MQTT','mqtt_username',fallback=''), password=config.get('MQTT','mqtt_password',fallback=''))
+    else:
+        logtxt = "[MQTT] connecting (anonymous)"
+
+    mqtt_server = config.get('MQTT','mqtt_server')
+    mqtt_port = int(config.get('MQTT','mqtt_port'))
     for retry_cnt in range(1,31):
         try:
             logging.info(logtxt)
-#            mqttc.connect(mqtt_server, mqtt_port, 60)
-            mqttc.connect('192.168.0.1', 1883, 60)
+            mqttc.connect(mqtt_server, mqtt_port, 60)
             mqttc.loop_start()
             return mqttc
         except:
             logging.error('[MQTT] connection failure. #' + str(retry_cnt))
             time.sleep(10)
     return False
-'''
+
 def mqtt_on_subscribe(mqttc, obj, mid, granted_qos):
     logging.info("[MQTT] Subscribed: " + str(mid) + " " + str(granted_qos))
 
@@ -116,7 +91,7 @@ def mqtt_on_connect(mqttc, userdata, flags, rc):
 
 def mqtt_on_disconnect(mqttc, userdata, rc=0):
     logging.error("[MQTT] Disconnected - "+str(rc))
-
+'''
 
 # serial/socket communication class & functions--------------------
 
