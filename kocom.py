@@ -66,12 +66,11 @@ def init_mqttc():
 #        logtxt = "[MQTT] connecting (anonymous)"
 #    mqtt_server = config.get('MQTT','mqtt_server')
 #    mqtt_port = int(config.get('MQTT','mqtt_port'))
-    mqtt_server = 192.168.1.2
-    mqtt_port = 1883
     for retry_cnt in range(1,31):
         try:
             logging.info(logtxt)
-            mqttc.connect(mqtt_server, mqtt_port, 60)
+#            mqttc.connect(mqtt_server, mqtt_port, 60)
+            mqttc.connect('192.168.0.1', 1883, 60)
             mqttc.loop_start()
             return mqttc
         except:
